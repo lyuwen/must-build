@@ -14,6 +14,7 @@ OPTION(ENABLE_GPU "Build with GPU support" OFF)
 # OPTION(ENABLE_GPU ON)
 OPTION(WITH_OPENMP "Build with OpenMP" OFF)
 OPTION(SOURCE_DIR "The directory of the source files." OFF)
+OPTION(WITH_DEBUG_UTILS "Build with debug utilities." OFF)
 
 if (ENABLE_GPU)
   cmake_policy(SET CMP0104 OLD)
@@ -126,6 +127,9 @@ endmacro()
 add_subdirectory(lib)
 append_subdir_files(LIB_MODULES "lib")
 append_subdir_files(LIB_LOBS "lib")
+if (WITH_DEBUG_UTILS)
+  append_subdir_files(LDEBUG_LOBS "lib")
+endif()
 
 message(STATUS "LIB_LOBS = ${LIB_LOBS}")
 
@@ -174,7 +178,11 @@ add_compile_definitions(LSMS2)
 #
 # Libraries
 #
-add_library(mst ${LIB_MODULES} ${LIB_LOBS})
+if (WITH_DEBUG_UTILS)
+  add_library(mst ${LIB_MODULES} ${LIB_LOBS} ${LDEBUG_LOBS})
+else()
+  add_library(mst ${LIB_MODULES} ${LIB_LOBS})
+endif()
 
 add_library(iolib ${IO_OBJS})
 include_directories(iolib)

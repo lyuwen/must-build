@@ -24,5 +24,8 @@ set (LIB_LOBS
   ratintr.F90 GaussianElim.F90 zgetf2_nopivot.F90 zgetrf_nopivot.F90
   pzgetf2_nopivot.F pzgetrf_nopivot.F pz_LogTrace.F computeProdExpan.F90
   BroydenLib.F90 AndersonLib.F90 decompose3Index.F90 breakLine.F90
+  )
+
+set (LDEBUG_LOBS
   mod_log.F90  mod_tprof.F90
   )
